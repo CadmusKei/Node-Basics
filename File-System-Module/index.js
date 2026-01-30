@@ -12,4 +12,14 @@ async function createFolder() {
   }
 }
 
+async function createFile(name) {
+  const filename = path.join(dataFolder, `${name}.txt`);
+  try {
+    await fs.writeFile(filename, "I love Erin!");
+  } catch (error) {
+    console.log("File could not be written! ", error);
+  }
+}
+
 createFolder();
+createFile("ILoveRrin");
