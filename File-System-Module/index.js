@@ -33,10 +33,21 @@ async function readFile(name) {
   }
 }
 
+async function appendLine(name, content) {
+  try {
+    const fileName = path.join(dataFolder, `${name}.txt`);
+    await fs.appendFile(fileName, "\n" + content);
+    console.log("Success! We have appended the content!");
+  } catch (error) {
+    console.log("Could not append! Error: ", error);
+  }
+}
+
 async function readFileJustWritten() {
   try {
     await createFolder();
     await createFile("ILoveErin");
+    await appendLine("ILoveErin", "Like a lot!");
     await readFile("ILoveErin");
   } catch (error) {
     console.log("Could not read the created file! Error: ", error);
