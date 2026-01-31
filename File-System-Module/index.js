@@ -1,3 +1,4 @@
+const { read } = require("fs");
 const fs = require("fs/promises");
 const path = require("path");
 
@@ -16,10 +17,30 @@ async function createFile(name) {
   const filename = path.join(dataFolder, `${name}.txt`);
   try {
     await fs.writeFile(filename, "I love Erin!");
+    console.log("File Created!");
   } catch (error) {
     console.log("File could not be written! ", error);
   }
 }
 
-createFolder();
-createFile("ILoveRrin");
+async function readFile(name) {
+  try {
+    const filename = path.join(dataFolder, `${name}.txt`);
+    const contents = await fs.readFile(filename, "utf8");
+    console.log("File contents: ", contents);
+  } catch (error) {
+    console.log("Could not read file! Error: ", error);
+  }
+}
+
+async function readFileJustWritten() {
+  try {
+    await createFolder();
+    await createFile("ILoveErin");
+    await readFile("ILoveErin");
+  } catch (error) {
+    console.log("Could not read the created file! Error: ", error);
+  }
+}
+
+readFileJustWritten();
